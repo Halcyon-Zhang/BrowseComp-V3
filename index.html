@@ -1,12 +1,831 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BrowseComp - Hello World</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="BrowseComp-V³: A Vertical, Verifiable, and Visual Benchmark for Multimodal Browsing Agents">
+  <meta name="description" content="BrowseComp-V³: A novel evaluation benchmark with 300 handcrafted questions for multimodal browsing agents, featuring deep multi-hop reasoning, public searchability, and expert-validated process evaluation.">
+  <meta name="keywords" content="multimodal agents, browsing agents, evaluation benchmark, large language models, deep search, SIGIR">
+  <meta name="author" content="Huanyao Zhang, Jiepeng Zhou, Bo Li, Bowen Zhou, Wentao Zhang, Bin Cui">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="BrowseComp-V³ - PKU & HKUST(GZ) & Huawei">
+  <meta property="og:title" content="BrowseComp-V³: A Vertical, Verifiable, and Visual Benchmark for Multimodal Browsing Agents">
+  <meta property="og:description" content="BrowseComp-V³: A novel evaluation benchmark with 300 handcrafted questions for multimodal browsing agents, featuring deep multi-hop reasoning and expert-validated process evaluation.">
+  <meta property="og:url" content="https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE">
+  <meta property="og:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="BrowseComp-V³ - Research Preview">
+  <meta property="article:published_time" content="2026-01-01T00:00:00.000Z">
+  <meta property="article:author" content="Huanyao Zhang">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="multimodal agents">
+  <meta property="article:tag" content="browsing agents">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BrowseComp-V³: A Vertical, Verifiable, and Visual Benchmark for Multimodal Browsing Agents">
+  <meta name="twitter:description" content="BrowseComp-V³: A novel evaluation benchmark with 300 handcrafted questions for multimodal browsing agents.">
+  <meta name="twitter:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
+  <meta name="twitter:image:alt" content="BrowseComp-V³ - Research Preview">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="BrowseComp-V³: A Vertical, Verifiable, and Visual Benchmark for Multimodal Browsing Agents">
+  <meta name="citation_author" content="Zhang, Huanyao">
+  <meta name="citation_author" content="Zhou, Jiepeng">
+  <meta name="citation_author" content="Li, Bo">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="SIGIR">
+  <meta name="citation_pdf_url" content="https://YOUR_DOMAIN.com/static/pdfs/paper.pdf">
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://documentcloud.adobe.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+
+  <title>BrowseComp-V³: A Vertical, Verifiable, and Visual Benchmark for Multimodal Browsing Agents | SIGIR 2026</title>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+  
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+  
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+  
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "BrowseComp-V³: A Vertical, Verifiable, and Visual Benchmark for Multimodal Browsing Agents",
+    "description": "A novel evaluation benchmark comprising 300 handcrafted questions for multimodal browsing agents, with deep multi-hop reasoning and expert-validated process evaluation.",
+    "author": [
+      {"@type": "Person", "name": "Huanyao Zhang", "affiliation": {"@type": "Organization", "name": "Peking University"}},
+      {"@type": "Person", "name": "Jiepeng Zhou", "affiliation": {"@type": "Organization", "name": "HKUST(GZ)"}},
+      {"@type": "Person", "name": "Wentao Zhang", "affiliation": {"@type": "Organization", "name": "Peking University"}},
+      {"@type": "Person", "name": "Bin Cui", "affiliation": {"@type": "Organization", "name": "Peking University"}}
+    ],
+    "datePublished": "2026-01-01",
+    "publisher": {"@type": "Organization", "name": "SIGIR"},
+    "url": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE",
+    "image": "https://YOUR_DOMAIN.com/static/images/social_preview.png",
+    "keywords": ["multimodal agents", "browsing agents", "evaluation benchmark", "deep search", "SIGIR"],
+    "abstract": "In recent years, multimodal large language models have rapidly advanced in handling complex tasks, gradually acquiring agent-level capabilities for autonomous exploration and decision-making. Nevertheless, existing evaluation benchmarks remain limited in terms of task complexity, information searchability, and evaluation granularity, hindering a systematic assessment of multimodal browsing agents' deep search abilities in open-world environments. To address these gaps, we present BrowseComp-V³, a novel evaluation benchmark comprising 300 meticulously handcrafted, high-difficulty questions across diverse domains. By emphasizing deep, multi-level, and cross-modal multi-hop reasoning, BrowseComp-V³ effectively reduces reliance on models' internal knowledge. Moreover, we strictly enforces the public searchability of all supporting evidence and incorporates an expert-validated, key subgoal–driven process evaluation mechanism, enabling fine-grained characterization of search behaviors and systematic analysis of capability boundaries. In addition, we develop MM-Browse Agent, a model-agnostic universal framework for multimodal search agents. Experimental results demonstrate that our framework achieves overall performance competitive with mainstream state-of-the-art closed-source systems, while significantly boosting the efficacy of open-source models in multimodal deep search tasks. Comprehensive analysis suggests that BrowseComp-V³ establishes a fair and rigorous foundation for the systematic evaluation and sustained advancement of multimodal browsing agents.",
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "mainEntity": {"@type": "WebPage", "@id": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE"},
+    "about": [
+      {"@type": "Thing", "name": "Multimodal Browsing Agents"},
+      {"@type": "Thing", "name": "Evaluation Benchmark"}
+    ]
+  }
+  </script>
+  
+  <!-- Website/Organization Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "BrowseComp-V³ Project",
+    "url": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE",
+    "logo": "https://YOUR_DOMAIN.com/static/images/favicon.ico"
+  }
+  </script>
 </head>
 <body>
-  <h1>Hello World</h1>
-  <p>如果你能看到这行字，说明 GitHub Pages 已正常显示。</p>
-</body>
-</html>
+
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- More Works Dropdown -->
+  <div class="more-works-container">
+    <button class="more-works-btn" onclick="toggleMoreWorks()" title="View More Works from Our Lab">
+      <i class="fas fa-flask"></i>
+      More Works
+      <i class="fas fa-chevron-down dropdown-arrow"></i>
+    </button>
+    <div class="more-works-dropdown" id="moreWorksDropdown">
+      <div class="dropdown-header">
+        <h4>More Works from Our Lab</h4>
+        <button class="close-btn" onclick="toggleMoreWorks()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="works-list">
+        <!-- TODO: Replace with your lab's related works -->
+        <a href="https://arxiv.org/abs/PAPER_ID_1" class="work-item" target="_blank">
+          <div class="work-info">
+            <!-- TODO: Replace with actual paper title -->
+            <h5>Paper Title 1</h5>
+            <!-- TODO: Replace with brief description -->
+            <p>Brief description of the work and its main contribution.</p>
+            <!-- TODO: Replace with venue and year -->
+            <span class="work-venue">Conference/Journal 2024</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+        <!-- TODO: Add more related works or remove extra items -->
+        <a href="https://arxiv.org/abs/PAPER_ID_2" class="work-item" target="_blank">
+          <div class="work-info">
+            <h5>Paper Title 2</h5>
+            <p>Brief description of the work and its main contribution.</p>
+            <span class="work-venue">Conference/Journal 2023</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+        <a href="https://arxiv.org/abs/PAPER_ID_3" class="work-item" target="_blank">
+          <div class="work-info">
+            <h5>Paper Title 3</h5>
+            <p>Brief description of the work and its main contribution.</p>
+            <span class="work-venue">Conference/Journal 2023</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">
+              <span class="title-line">BrowseComp-V<sup>3</sup>: A Vertical, Verifiable, and Visual</span>
+              <span class="title-line">Benchmark for Multimodal Browsing Agents</span>
+            </h1>
+            <div class="publication-authors publication-authors-compact">
+              Huanyao Zhang<sup>1◆‡</sup>, Jiepeng Zhou<sup>2◆</sup>, Bo Li<sup>1◆</sup>, Bowen Zhou<sup>1◆</sup>, Yanzhe Dan<sup>3◆</sup>, Haishan Lu<sup>1</sup>, Zhiyong Cao<sup>4</sup>, Jiaoyang Chen<sup>5</sup>, Yuqian Han<sup>1</sup>, Zinan Sheng<sup>1</sup>, Zhengwei Tao<sup>1</sup>, Hao Liang<sup>1</sup>, Jialong Wu<sup>1</sup>, Yang Shi<sup>1</sup>, Yuanpeng He<sup>1</sup>, Jiaye Lin<sup>6</sup>, Qintong Zhang<sup>1</sup>, Guochen Yan<sup>1</sup>, Runhao Zhao<sup>1</sup>, Zhengpin Li<sup>1</sup>, Xiaohan Yu<sup>7</sup>, Lang Mei<sup>7</sup>, Chong Chen<sup>7†</sup>, Wentao Zhang<sup>1†</sup>, Bin Cui<sup>1†</sup>
+            </div>
+            <div class="publication-authors publication-authors-compact publication-affiliations">
+              <sup>1</sup>Peking University &nbsp; <sup>2</sup>HKUST(GZ) &nbsp; <sup>3</sup>OUC &nbsp; <sup>4</sup>CASIA &nbsp; <sup>5</sup>HITSZ &nbsp; <sup>6</sup>THU &nbsp; <sup>7</sup>Huawei Cloud BU
+            </div>
+            <div class="publication-authors publication-authors-compact publication-footnotes">
+              ◆ Core Contributor &nbsp; ‡ Project Leader &nbsp; † Corresponding author
+            </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                      <span class="link-block">
+                        <a href="https://arxiv.org/pdf/<ARXIV_PAPER_ID>.pdf" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                          <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                          <span>Paper</span>
+                        </a>
+                      </span>
+                      <span class="link-block">
+                        <a href="https://github.com/YOUR_REPO" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                          <span class="icon"><i class="fab fa-github"></i></span>
+                          <span>Code</span>
+                        </a>
+                      </span>
+                      <span class="link-block">
+                        <a href="https://arxiv.org/abs/<ARXIV_PAPER_ID>" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                          <span class="icon"><i class="ai ai-arxiv"></i></span>
+                          <span>arXiv</span>
+                        </a>
+                      </span>
+                      <span class="link-block">
+                        <a href="#" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                          <span class="icon icon-hf"><img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Hugging Face" width="20" height="20"></span>
+                          <span>Dataset</span>
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser video-->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!-- TODO: Replace with your teaser video -->
+      <video poster="" id="tree" autoplay controls muted loop height="100%" preload="metadata">
+        <!-- TODO: Add your video file path here -->
+        <source src="static/videos/banner_video.mp4" type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        BrowseComp-V³: A vertical, verifiable, and visual benchmark for evaluating multimodal browsing agents with 300 handcrafted questions and the MM-Browse Agent framework.
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- End teaser video -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            In recent years, multimodal large language models have rapidly advanced in handling complex tasks, gradually acquiring agent-level capabilities for autonomous exploration and decision-making. Nevertheless, existing evaluation benchmarks remain limited in terms of task complexity, information searchability, and evaluation granularity, hindering a systematic assessment of multimodal browsing agents' deep search abilities in open-world environments. To address these gaps, we present <strong>BrowseComp-V³</strong>, a novel evaluation benchmark comprising 300 meticulously handcrafted, high-difficulty questions across diverse domains. By emphasizing deep, multi-level, and cross-modal multi-hop reasoning, BrowseComp-V³ effectively reduces reliance on models' internal knowledge. Moreover, we strictly enforces the public searchability of all supporting evidence and incorporates an expert-validated, key subgoal–driven process evaluation mechanism, enabling fine-grained characterization of search behaviors and systematic analysis of capability boundaries. In addition, we develop <strong>MM-Browse Agent</strong>, a model-agnostic universal framework for multimodal search agents. Experimental results demonstrate that our framework achieves overall performance competitive with mainstream state-of-the-art closed-source systems, while significantly boosting the efficacy of open-source models in multimodal deep search tasks. Comprehensive analysis suggests that BrowseComp-V³ establishes a fair and rigorous foundation for the systematic evaluation and sustained advancement of multimodal browsing agents.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- Leaderboard -->
+<section class="section hero is-light" id="leaderboard">
+  <div class="container leaderboard-container">
+    <h2 class="title is-3 has-text-centered">Leaderboard</h2>
+    <p class="leaderboard-caption has-text-centered">
+      Performance on <strong>BrowseComp-V³</strong>. Results are reported in terms of <strong>Success Rate (SR)</strong> and <strong>Process Score (PS)</strong> under the Pass@1 setting.
+      <strong>Average</strong> denotes the overall average; <strong>Sci.</strong>, <strong>Tech.</strong>, <strong>Soc.</strong>, <strong>Cul.</strong>, and <strong>Lif.</strong> correspond to <em>Science</em>, <em>Technology</em>, <em>Society</em>, <em>Culture</em>, and <em>Life</em>, respectively.
+      <span class="leaderboard-note">Bold</span> indicates the best in each group.
+    </p>
+    <div class="leaderboard-table-wrapper">
+      <table class="leaderboard-table">
+        <thead>
+          <tr>
+            <th class="col-model" rowspan="2">Model</th>
+            <th class="col-group" colspan="6">Success Rate (SR, %)</th>
+            <th class="col-group" colspan="6">Process Score (PS, %)</th>
+          </tr>
+          <tr>
+            <th class="col-avg">Average</th>
+            <th>Science</th>
+            <th>Technology</th>
+            <th>Society</th>
+            <th>Culture</th>
+            <th>Life</th>
+            <th class="col-avg">Average</th>
+            <th>Science</th>
+            <th>Technology</th>
+            <th>Society</th>
+            <th>Culture</th>
+            <th>Life</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="group-row">
+            <td colspan="13"><strong>Human</strong></td>
+          </tr>
+          <tr>
+            <td class="col-model">Browser</td>
+            <td class="col-avg best">68.03</td>
+            <td>72.00</td>
+            <td>70.00</td>
+            <td>73.33</td>
+            <td>68.00</td>
+            <td>54.00</td>
+            <td class="col-avg best">82.93</td>
+            <td>87.54</td>
+            <td>85.25</td>
+            <td>84.19</td>
+            <td>82.73</td>
+            <td>74.32</td>
+          </tr>
+          <tr class="group-row">
+            <td colspan="13"><strong>Tool-Augmented VLMs</strong></td>
+          </tr>
+          <tr>
+            <td class="col-model">GPT-5.2-Thinking</td>
+            <td class="col-avg best">39.13</td>
+            <td>26.00</td>
+            <td>48.00</td>
+            <td>38.67</td>
+            <td>37.33</td>
+            <td>46.00</td>
+            <td class="col-avg best">66.05</td>
+            <td>61.11</td>
+            <td>79.74</td>
+            <td>54.87</td>
+            <td>71.41</td>
+            <td>64.73</td>
+          </tr>
+          <tr>
+            <td class="col-model">Gemini-3-Pro-Preview</td>
+            <td class="col-avg">22.90</td>
+            <td>18.00</td>
+            <td>16.00</td>
+            <td>21.33</td>
+            <td>24.00</td>
+            <td>34.00</td>
+            <td class="col-avg">62.43</td>
+            <td>62.02</td>
+            <td>73.78</td>
+            <td>48.70</td>
+            <td>66.33</td>
+            <td>62.50</td>
+          </tr>
+          <tr>
+            <td class="col-model">Claude-Sonnet-4.5-Thinking</td>
+            <td class="col-avg">18.33</td>
+            <td>22.00</td>
+            <td>16.00</td>
+            <td>17.33</td>
+            <td>21.33</td>
+            <td>14.00</td>
+            <td class="col-avg">47.73</td>
+            <td>58.61</td>
+            <td>58.41</td>
+            <td>34.79</td>
+            <td>54.33</td>
+            <td>35.68</td>
+          </tr>
+          <tr class="group-row">
+            <td colspan="13"><strong>Tool-Free VLMs</strong></td>
+          </tr>
+          <tr>
+            <td class="col-model">GPT-5.2</td>
+            <td class="col-avg">6.00</td>
+            <td>0.00</td>
+            <td>14.00</td>
+            <td>4.00</td>
+            <td>5.33</td>
+            <td>8.00</td>
+            <td class="col-avg">25.02</td>
+            <td>17.50</td>
+            <td>44.50</td>
+            <td>19.22</td>
+            <td>25.25</td>
+            <td>21.43</td>
+          </tr>
+          <tr>
+            <td class="col-model">o4-mini</td>
+            <td class="col-avg">7.33</td>
+            <td>0.00</td>
+            <td>16.00</td>
+            <td>2.67</td>
+            <td>6.67</td>
+            <td>14.00</td>
+            <td class="col-avg">29.08</td>
+            <td>29.48</td>
+            <td>46.12</td>
+            <td>17.91</td>
+            <td>29.04</td>
+            <td>28.44</td>
+          </tr>
+          <tr>
+            <td class="col-model">GPT-4o</td>
+            <td class="col-avg">2.67</td>
+            <td>0.00</td>
+            <td>10.00</td>
+            <td>2.67</td>
+            <td>1.33</td>
+            <td>0.00</td>
+            <td class="col-avg">11.26</td>
+            <td>6.78</td>
+            <td>26.52</td>
+            <td>9.45</td>
+            <td>7.60</td>
+            <td>8.66</td>
+          </tr>
+          <tr>
+            <td class="col-model">Gemini-3-Flash-Preview</td>
+            <td class="col-avg best">12.00</td>
+            <td>8.00</td>
+            <td>18.00</td>
+            <td>12.00</td>
+            <td>10.67</td>
+            <td>12.00</td>
+            <td class="col-avg best">40.76</td>
+            <td>38.98</td>
+            <td>61.94</td>
+            <td>31.89</td>
+            <td>39.72</td>
+            <td>36.60</td>
+          </tr>
+          <tr>
+            <td class="col-model">Claude-Sonnet-4.5</td>
+            <td class="col-avg">4.00</td>
+            <td>4.00</td>
+            <td>6.00</td>
+            <td>2.67</td>
+            <td>5.33</td>
+            <td>2.00</td>
+            <td class="col-avg">25.74</td>
+            <td>33.06</td>
+            <td>47.56</td>
+            <td>15.97</td>
+            <td>24.53</td>
+            <td>13.06</td>
+          </tr>
+          <tr>
+            <td class="col-model">Doubao-Seed-1.8</td>
+            <td class="col-avg">9.00</td>
+            <td>8.00</td>
+            <td>16.00</td>
+            <td>1.33</td>
+            <td>13.33</td>
+            <td>8.00</td>
+            <td class="col-avg">34.74</td>
+            <td>36.26</td>
+            <td>51.00</td>
+            <td>22.28</td>
+            <td>39.87</td>
+            <td>27.96</td>
+          </tr>
+          <tr>
+            <td class="col-model">MiMo-V2-Flash</td>
+            <td class="col-avg">3.00</td>
+            <td>2.00</td>
+            <td>4.00</td>
+            <td>2.67</td>
+            <td>4.00</td>
+            <td>2.00</td>
+            <td class="col-avg">8.12</td>
+            <td>4.52</td>
+            <td>17.28</td>
+            <td>5.43</td>
+            <td>9.40</td>
+            <td>4.70</td>
+          </tr>
+          <tr>
+            <td class="col-model">Qwen3-VL-235B-A22B-Instruct</td>
+            <td class="col-avg">3.33</td>
+            <td>4.00</td>
+            <td>4.00</td>
+            <td>4.00</td>
+            <td>2.67</td>
+            <td>2.00</td>
+            <td class="col-avg">20.52</td>
+            <td>26.34</td>
+            <td>35.38</td>
+            <td>11.69</td>
+            <td>19.64</td>
+            <td>14.39</td>
+          </tr>
+          <tr>
+            <td class="col-model">Qwen3-VL-8B-Instruct</td>
+            <td class="col-avg">1.00</td>
+            <td>0.00</td>
+            <td>2.00</td>
+            <td>1.33</td>
+            <td>0.00</td>
+            <td>2.00</td>
+            <td class="col-avg">6.64</td>
+            <td>3.28</td>
+            <td>15.36</td>
+            <td>6.39</td>
+            <td>4.09</td>
+            <td>5.48</td>
+          </tr>
+          <tr class="group-row">
+            <td colspan="13"><strong>MM-Browse Agent</strong></td>
+          </tr>
+          <tr>
+            <td class="col-model">GPT-5.2</td>
+            <td class="col-avg best">36.00</td>
+            <td>50.00</td>
+            <td>28.00</td>
+            <td>33.33</td>
+            <td>33.33</td>
+            <td>38.00</td>
+            <td class="col-avg">57.70</td>
+            <td>67.23</td>
+            <td>55.40</td>
+            <td>49.34</td>
+            <td>60.49</td>
+            <td>58.81</td>
+          </tr>
+          <tr>
+            <td class="col-model">o4-mini</td>
+            <td class="col-avg">26.00</td>
+            <td>22.00</td>
+            <td>24.00</td>
+            <td>25.33</td>
+            <td>34.67</td>
+            <td>20.00</td>
+            <td class="col-avg">44.66</td>
+            <td>43.70</td>
+            <td>52.11</td>
+            <td>40.73</td>
+            <td>48.72</td>
+            <td>37.94</td>
+          </tr>
+          <tr>
+            <td class="col-model">GPT-4o</td>
+            <td class="col-avg">11.41</td>
+            <td>14.00</td>
+            <td>14.00</td>
+            <td>10.67</td>
+            <td>14.67</td>
+            <td>2.00</td>
+            <td class="col-avg">24.15</td>
+            <td>22.32</td>
+            <td>43.36</td>
+            <td>17.35</td>
+            <td>25.93</td>
+            <td>13.04</td>
+          </tr>
+          <tr>
+            <td class="col-model">Gemini-3-Flash-Preview</td>
+            <td class="col-avg">23.67</td>
+            <td>32.00</td>
+            <td>24.00</td>
+            <td>18.67</td>
+            <td>25.33</td>
+            <td>20.00</td>
+            <td class="col-avg">47.37</td>
+            <td>50.84</td>
+            <td>68.35</td>
+            <td>40.15</td>
+            <td>43.68</td>
+            <td>39.27</td>
+          </tr>
+          <tr>
+            <td class="col-model">Claude-Sonnet-4.5</td>
+            <td class="col-avg">22.67</td>
+            <td>32.00</td>
+            <td>20.00</td>
+            <td>21.33</td>
+            <td>24.00</td>
+            <td>16.00</td>
+            <td class="col-avg">54.17</td>
+            <td>60.94</td>
+            <td>64.25</td>
+            <td>45.29</td>
+            <td>56.73</td>
+            <td>46.78</td>
+          </tr>
+          <tr>
+            <td class="col-model">Doubao-Seed-1.8</td>
+            <td class="col-avg">33.67</td>
+            <td>42.00</td>
+            <td>28.00</td>
+            <td>37.33</td>
+            <td>38.67</td>
+            <td>18.00</td>
+            <td class="col-avg best">58.44</td>
+            <td>52.94</td>
+            <td>69.70</td>
+            <td>57.46</td>
+            <td>66.27</td>
+            <td>42.42</td>
+          </tr>
+          <tr>
+            <td class="col-model">MiMo-V2-Flash</td>
+            <td class="col-avg">16.67</td>
+            <td>18.00</td>
+            <td>12.00</td>
+            <td>10.67</td>
+            <td>29.33</td>
+            <td>10.00</td>
+            <td class="col-avg">31.33</td>
+            <td>34.84</td>
+            <td>35.04</td>
+            <td>24.45</td>
+            <td>42.43</td>
+            <td>17.76</td>
+          </tr>
+          <tr>
+            <td class="col-model">Qwen3-VL-235B-A22B-Instruct</td>
+            <td class="col-avg">14.33</td>
+            <td>16.00</td>
+            <td>14.00</td>
+            <td>14.67</td>
+            <td>17.33</td>
+            <td>8.00</td>
+            <td class="col-avg">26.68</td>
+            <td>28.56</td>
+            <td>35.93</td>
+            <td>22.00</td>
+            <td>28.36</td>
+            <td>20.05</td>
+          </tr>
+          <tr>
+            <td class="col-model">Qwen3-VL-8B-Instruct</td>
+            <td class="col-avg">5.33</td>
+            <td>2.00</td>
+            <td>2.00</td>
+            <td>9.33</td>
+            <td>8.00</td>
+            <td>2.00</td>
+            <td class="col-avg">13.40</td>
+            <td>8.02</td>
+            <td>19.30</td>
+            <td>15.57</td>
+            <td>15.55</td>
+            <td>6.38</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<!-- End Leaderboard -->
+
+
+<!-- Image carousel -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+       <div class="item">
+        <!-- TODO: Replace with your research result images -->
+        <img src="static/images/carousel1.jpg" alt="First research result visualization" loading="lazy"/>
+        <!-- TODO: Replace with description of this result -->
+        <h2 class="subtitle has-text-centered">
+          First image description.
+        </h2>
+      </div>
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/carousel2.jpg" alt="Second research result visualization" loading="lazy"/>
+        <h2 class="subtitle has-text-centered">
+          Second image description.
+        </h2>
+      </div>
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/carousel3.jpg" alt="Third research result visualization" loading="lazy"/>
+        <h2 class="subtitle has-text-centered">
+         Third image description.
+       </h2>
+     </div>
+     <div class="item">
+      <!-- Your image here -->
+      <img src="static/images/carousel4.jpg" alt="Fourth research result visualization" loading="lazy"/>
+      <h2 class="subtitle has-text-centered">
+        Fourth image description.
+      </h2>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+<!-- End image carousel -->
+
+
+
+
+<!-- Youtube video -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <!-- Paper video. -->
+      <h2 class="title is-3">Video Presentation</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          
+          <div class="publication-video">
+            <!-- TODO: Replace with your YouTube video ID -->
+            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End youtube video -->
+
+
+<!-- Video carousel -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">Another Carousel</h2>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-video1">
+          <!-- TODO: Add poster image for better preview -->
+          <video poster="" id="video1" controls muted loop height="100%" preload="metadata">
+            <!-- Your video file here -->
+            <source src="static/videos/carousel1.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video2">
+          <!-- TODO: Add poster image for better preview -->
+          <video poster="" id="video2" controls muted loop height="100%" preload="metadata">
+            <!-- Your video file here -->
+            <source src="static/videos/carousel2.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video3">
+          <!-- TODO: Add poster image for better preview -->
+          <video poster="" id="video3" controls muted loop height="100%" preload="metadata">
+            <!-- Your video file here -->
+            <source src="static/videos/carousel3.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End video carousel -->
+
+
+
+
+
+
+<!-- Paper poster -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title">Poster</h2>
+
+      <!-- TODO: Replace with your poster PDF -->
+      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
+          </iframe>
+        
+      </div>
+    </div>
+  </section>
+<!--End paper poster -->
+
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <pre id="bibtex-code"><code>@inproceedings{browsecompv3-sigir2026,
+  title={BrowseComp-V$^3$: A Vertical, Verifiable, and Visual Benchmark for Multimodal Browsing Agents},
+  author={Zhang, Huanyao and Zhou, Jiepeng and Li, Bo and Zhou, Bowen and Dan, Yanzhe and Lu, Haishan and Cao, Zhiyong and Chen, Jiaoyang and Han, Yuqian and Sheng, Zinan and Tao, Zhengwei and Liang, Hao and Wu, Jialong and Shi, Yang and He, Yuanpeng and Lin, Jiaye and Zhang, Qintong and Yan, Guochen and Zhao, Runhao and Li, Zhengpin and Yu, Xiaohan and Mei, Lang and Chen, Chong and Zhang, Wentao and Cui, Bin},
+  booktitle={SIGIR},
+  year={2026},
+  url={https://your-domain.com/your-project-page}
+}</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
