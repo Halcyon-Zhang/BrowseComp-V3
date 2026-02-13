@@ -90,6 +90,65 @@ window.addEventListener('scroll', function() {
     }
 });
 
+// Experiment Analysis: one panel at a time, custom slider (no bulma carousel)
+var experimentAnalysisIndex = 0;
+var experimentAnalysisTotal = 3;
+
+function experimentAnalysisUpdate() {
+	var inner = document.getElementById('experiment-panels-inner');
+	var dots = document.querySelectorAll('#experiment-pagination .experiment-dot');
+	if (!inner || !dots.length) return;
+	// Each panel is 1/3 of inner width; move by (index * 100/3)%
+	var percent = (experimentAnalysisIndex * 100 / experimentAnalysisTotal);
+	inner.style.transform = 'translateX(-' + percent + '%)';
+	dots.forEach(function(dot, i) {
+		dot.classList.toggle('is-active', i === experimentAnalysisIndex);
+	});
+}
+
+function experimentAnalysisPrev() {
+	experimentAnalysisIndex = (experimentAnalysisIndex - 1 + experimentAnalysisTotal) % experimentAnalysisTotal;
+	experimentAnalysisUpdate();
+}
+
+function experimentAnalysisNext() {
+	experimentAnalysisIndex = (experimentAnalysisIndex + 1) % experimentAnalysisTotal;
+	experimentAnalysisUpdate();
+}
+
+function experimentAnalysisGo(i) {
+	experimentAnalysisIndex = Number(i);
+	experimentAnalysisUpdate();
+}
+
+// Experiment Analysis: init on DOMContentLoaded (no jQuery dependency) + delegate clicks on document
+function initExperimentAnalysis() {
+	experimentAnalysisUpdate();
+	// Delegate all experiment-nav and experiment-dot clicks from document (always works)
+	document.addEventListener('click', function(e) {
+		if (e.target.closest && e.target.closest('#experiment-nav-prev')) {
+			e.preventDefault();
+			experimentAnalysisPrev();
+			return;
+		}
+		if (e.target.closest && e.target.closest('#experiment-nav-next')) {
+			e.preventDefault();
+			experimentAnalysisNext();
+			return;
+		}
+		var dot = e.target.closest && e.target.closest('.experiment-dot');
+		if (dot && dot.closest('#experiment-pagination') && dot.dataset.index !== undefined) {
+			e.preventDefault();
+			experimentAnalysisGo(parseInt(dot.dataset.index, 10));
+		}
+	});
+}
+if (document.readyState === 'loading') {
+	document.addEventListener('DOMContentLoaded', initExperimentAnalysis);
+} else {
+	initExperimentAnalysis();
+}
+
 // Video carousel autoplay when in view
 function setupVideoCarouselAutoplay() {
     const carouselVideos = document.querySelectorAll('.results-carousel video');
@@ -131,10 +190,12 @@ $(document).ready(function() {
 		autoplaySpeed: 5000,
     }
 
-	// Initialize all div with carousel class
+	// Initialize carousels (general)
     var carousels = bulmaCarousel.attach('.carousel', options);
 	
     bulmaSlider.attach();
+    
+    // Experiment Analysis already inited via DOMContentLoaded above
     
     // Setup video autoplay for carousel
     setupVideoCarouselAutoplay();

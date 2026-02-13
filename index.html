@@ -47,6 +47,7 @@
   <!-- Additional SEO -->
   <meta name="theme-color" content="#2563eb">
   <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   
@@ -71,14 +72,14 @@
   <!-- Non-critical CSS - Load asynchronously -->
   <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <!-- Font Awesome from CDN (includes webfonts, avoids 404 for fa-brands) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   
   <!-- Fallback for browsers that don't support preload -->
   <noscript>
     <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
     <link rel="stylesheet" href="static/css/bulma-slider.min.css">
-    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   </noscript>
   
@@ -88,7 +89,6 @@
   <!-- Defer non-critical JavaScript -->
   <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
-  <script defer src="static/js/fontawesome.all.min.js"></script>
   <script defer src="static/js/bulma-carousel.min.js"></script>
   <script defer src="static/js/bulma-slider.min.js"></script>
   <script defer src="static/js/index.js"></script>
@@ -141,7 +141,7 @@
     <i class="fas fa-chevron-up"></i>
   </button>
 
-  <!-- More Works Dropdown -->
+  <!-- More Works Dropdown (commented out for now)
   <div class="more-works-container">
     <button class="more-works-btn" onclick="toggleMoreWorks()" title="View More Works from Our Lab">
       <i class="fas fa-flask"></i>
@@ -156,19 +156,14 @@
         </button>
       </div>
       <div class="works-list">
-        <!-- TODO: Replace with your lab's related works -->
         <a href="https://arxiv.org/abs/PAPER_ID_1" class="work-item" target="_blank">
           <div class="work-info">
-            <!-- TODO: Replace with actual paper title -->
             <h5>Paper Title 1</h5>
-            <!-- TODO: Replace with brief description -->
             <p>Brief description of the work and its main contribution.</p>
-            <!-- TODO: Replace with venue and year -->
             <span class="work-venue">Conference/Journal 2024</span>
           </div>
           <i class="fas fa-external-link-alt"></i>
         </a>
-        <!-- TODO: Add more related works or remove extra items -->
         <a href="https://arxiv.org/abs/PAPER_ID_2" class="work-item" target="_blank">
           <div class="work-info">
             <h5>Paper Title 2</h5>
@@ -188,6 +183,7 @@
       </div>
     </div>
   </div>
+  End More Works -->
 
   <main id="main-content">
   <section class="hero">
@@ -244,13 +240,11 @@
 </section>
 
 
-<!-- Teaser video-->
+<!-- Teaser video (commented out for now)
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <!-- TODO: Replace with your teaser video -->
       <video poster="" id="tree" autoplay controls muted loop height="100%" preload="metadata">
-        <!-- TODO: Add your video file path here -->
         <source src="static/videos/banner_video.mp4" type="video/mp4">
       </video>
       <h2 class="subtitle has-text-centered">
@@ -259,7 +253,7 @@
     </div>
   </div>
 </section>
-<!-- End teaser video -->
+End teaser video -->
 
 <!-- Paper abstract -->
 <section class="section hero is-light">
@@ -285,8 +279,7 @@
     <h2 class="title is-3 has-text-centered">Leaderboard</h2>
     <p class="leaderboard-caption has-text-centered">
       Performance on <strong>BrowseComp-V³</strong>. Results are reported in terms of <strong>Success Rate (SR)</strong> and <strong>Process Score (PS)</strong> under the Pass@1 setting.
-      <strong>Average</strong> denotes the overall average; <strong>Sci.</strong>, <strong>Tech.</strong>, <strong>Soc.</strong>, <strong>Cul.</strong>, and <strong>Lif.</strong> correspond to <em>Science</em>, <em>Technology</em>, <em>Society</em>, <em>Culture</em>, and <em>Life</em>, respectively.
-      <span class="leaderboard-note">Bold</span> indicates the best in each group.
+      <strong>Average</strong> denotes the overall average.
     </p>
     <div class="leaderboard-table-wrapper">
       <table class="leaderboard-table">
@@ -662,60 +655,146 @@
 <!-- End Leaderboard -->
 
 
-<!-- Image carousel -->
+<!-- The BrowseComp-V3 Dataset -->
+<section class="section hero is-light" id="dataset">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">The BrowseComp-V³ Dataset</h2>
+
+    <h3 class="title is-4 mt-6">Overview</h3>
+    <p class="content has-text-justified">
+      We introduce the construction pipeline and statistics of the BrowseComp-V³ benchmark below.
+    </p>
+
+    <h3 class="title is-4 mt-6">Data Construction Pipeline</h3>
+    <div class="dataset-figure box">
+      <img src="static/images/overview.png" alt="Data Construction Pipeline" class="dataset-img" loading="lazy">
+    </div>
+
+    <h3 class="title is-4 mt-6">Dataset Statistics</h3>
+    <div class="columns is-variable is-4 dataset-stats-row">
+      <div class="column is-6">
+        <div class="dataset-figure box">
+          <img src="static/images/domain_2.png" alt="Domain statistics" class="dataset-img" loading="lazy">
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="dataset-figure box">
+          <img src="static/images/statistic.png" alt="Dataset statistics" class="dataset-img" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End The BrowseComp-V3 Dataset -->
+
+
+<!-- Experiment Analysis: one panel at a time, each panel = one experiment with two images -->
+<section class="section hero is-light" id="experiment-analysis">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Experiment Analysis</h2>
+    <div class="experiment-analysis-wrapper">
+      <button type="button" class="experiment-nav experiment-nav-prev" aria-label="Previous" id="experiment-nav-prev">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button type="button" class="experiment-nav experiment-nav-next" aria-label="Next" id="experiment-nav-next">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <div class="experiment-panels-outer">
+        <div class="experiment-panels-inner" id="experiment-panels-inner">
+          <!-- Panel 1: Fine-grained Analysis -->
+          <div class="experiment-panel" data-index="0">
+            <h3 class="title is-4 has-text-centered experiment-panel-title">Fine-grained Analysis</h3>
+            <div class="columns is-variable is-4 analysis-panel-row">
+              <div class="column is-6">
+                <div class="dataset-figure box">
+                  <img src="static/images/hop.png" alt="Hop analysis" class="dataset-img" loading="lazy">
+                </div>
+              </div>
+              <div class="column is-6">
+                <div class="dataset-figure box">
+                  <img src="static/images/ability_heatmap.png" alt="Ability heatmap" class="dataset-img" loading="lazy">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Panel 2: Test Time Scaling -->
+          <div class="experiment-panel" data-index="1">
+            <h3 class="title is-4 has-text-centered experiment-panel-title">Test Time Scaling</h3>
+            <div class="columns is-variable is-4 analysis-panel-row">
+              <div class="column is-6">
+                <div class="dataset-figure box">
+                  <img src="static/images/maxturn.png" alt="Max turn scaling" class="dataset-img" loading="lazy">
+                </div>
+              </div>
+              <div class="column is-6">
+                <div class="dataset-figure box">
+                  <img src="static/images/passk.png" alt="Pass@k scaling" class="dataset-img" loading="lazy">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Panel 3: Failure Mode Analysis -->
+          <div class="experiment-panel" data-index="2">
+            <h3 class="title is-4 has-text-centered experiment-panel-title">Failure Mode Analysis</h3>
+            <div class="columns is-variable is-4 analysis-panel-row">
+              <div class="column is-12">
+                <div class="dataset-figure box">
+                  <img src="static/images/fail_new.png" alt="Failure mode analysis" class="dataset-img" loading="lazy">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="experiment-pagination" id="experiment-pagination">
+        <button type="button" class="experiment-dot is-active" aria-label="Go to panel 1" data-index="0"></button>
+        <button type="button" class="experiment-dot" aria-label="Go to panel 2" data-index="1"></button>
+        <button type="button" class="experiment-dot" aria-label="Go to panel 3" data-index="2"></button>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Experiment Analysis -->
+
+
+<!-- Image carousel (commented out for now)
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
       <div id="results-carousel" class="carousel results-carousel">
        <div class="item">
-        <!-- TODO: Replace with your research result images -->
         <img src="static/images/carousel1.jpg" alt="First research result visualization" loading="lazy"/>
-        <!-- TODO: Replace with description of this result -->
-        <h2 class="subtitle has-text-centered">
-          First image description.
-        </h2>
+        <h2 class="subtitle has-text-centered">First image description.</h2>
       </div>
       <div class="item">
-        <!-- Your image here -->
         <img src="static/images/carousel2.jpg" alt="Second research result visualization" loading="lazy"/>
-        <h2 class="subtitle has-text-centered">
-          Second image description.
-        </h2>
+        <h2 class="subtitle has-text-centered">Second image description.</h2>
       </div>
       <div class="item">
-        <!-- Your image here -->
         <img src="static/images/carousel3.jpg" alt="Third research result visualization" loading="lazy"/>
-        <h2 class="subtitle has-text-centered">
-         Third image description.
-       </h2>
+        <h2 class="subtitle has-text-centered">Third image description.</h2>
      </div>
      <div class="item">
-      <!-- Your image here -->
       <img src="static/images/carousel4.jpg" alt="Fourth research result visualization" loading="lazy"/>
-      <h2 class="subtitle has-text-centered">
-        Fourth image description.
-      </h2>
+      <h2 class="subtitle has-text-centered">Fourth image description.</h2>
     </div>
   </div>
 </div>
 </div>
 </section>
-<!-- End image carousel -->
+End image carousel -->
 
 
 
 
-<!-- Youtube video -->
+<!-- Video Presentation (commented out for now)
 <section class="hero is-small is-light">
   <div class="hero-body">
     <div class="container">
-      <!-- Paper video. -->
       <h2 class="title is-3">Video Presentation</h2>
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-          
           <div class="publication-video">
-            <!-- TODO: Replace with your YouTube video ID -->
             <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </div>
         </div>
@@ -723,33 +802,26 @@
     </div>
   </div>
 </section>
-<!-- End youtube video -->
+End Video Presentation -->
 
-
-<!-- Video carousel -->
+<!-- Another Carousel (commented out for now)
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
       <h2 class="title is-3">Another Carousel</h2>
       <div id="results-carousel" class="carousel results-carousel">
         <div class="item item-video1">
-          <!-- TODO: Add poster image for better preview -->
           <video poster="" id="video1" controls muted loop height="100%" preload="metadata">
-            <!-- Your video file here -->
             <source src="static/videos/carousel1.mp4" type="video/mp4">
           </video>
         </div>
         <div class="item item-video2">
-          <!-- TODO: Add poster image for better preview -->
           <video poster="" id="video2" controls muted loop height="100%" preload="metadata">
-            <!-- Your video file here -->
             <source src="static/videos/carousel2.mp4" type="video/mp4">
           </video>
         </div>
         <div class="item item-video3">
-          <!-- TODO: Add poster image for better preview -->
           <video poster="" id="video3" controls muted loop height="100%" preload="metadata">
-            <!-- Your video file here -->
             <source src="static/videos/carousel3.mp4" type="video/mp4">
           </video>
         </div>
@@ -757,37 +829,31 @@
     </div>
   </div>
 </section>
-<!-- End video carousel -->
+End Another Carousel -->
 
 
 
 
 
 
-<!-- Paper poster -->
+<!-- Poster (commented out for now)
 <section class="hero is-small is-light">
   <div class="hero-body">
     <div class="container">
       <h2 class="title">Poster</h2>
-
-      <!-- TODO: Replace with your poster PDF -->
-      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
-          </iframe>
-        
-      </div>
+      <iframe src="static/pdfs/sample.pdf" width="100%" height="550"></iframe>
     </div>
-  </section>
-<!--End paper poster -->
+  </div>
+</section>
+End Poster -->
 
-
-<!-- Additional PDFs (with cover images) -->
+<!-- Additional Materials (commented out for now)
 <section class="hero is-small is-light">
   <div class="hero-body">
     <div class="container">
       <h2 class="title">Additional Materials</h2>
       <p class="subtitle is-6 has-text-grey">Click cover to open PDF</p>
       <div class="columns is-multiline is-variable is-4">
-        <!-- PDF card 1: add your cover image and PDF path -->
         <div class="column is-4">
           <a href="static/pdfs/sample.pdf" target="_blank" class="pdf-card box has-background-white">
             <figure class="image is-5by4">
@@ -797,7 +863,6 @@
             <p class="is-size-7 has-text-grey">Brief description (optional).</p>
           </a>
         </div>
-        <!-- PDF card 2 -->
         <div class="column is-4">
           <a href="static/pdfs/sample.pdf" target="_blank" class="pdf-card box has-background-white">
             <figure class="image is-5by4">
@@ -807,7 +872,6 @@
             <p class="is-size-7 has-text-grey">Brief description (optional).</p>
           </a>
         </div>
-        <!-- PDF card 3: duplicate block to add more -->
         <div class="column is-4">
           <a href="static/pdfs/sample.pdf" target="_blank" class="pdf-card box has-background-white">
             <figure class="image is-5by4">
@@ -821,7 +885,7 @@
     </div>
   </div>
 </section>
-<!-- End additional PDFs -->
+End Additional Materials -->
 
 
 <!--BibTex citation -->
@@ -854,7 +918,7 @@
 
           <p>
             This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
-            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
             Commons Attribution-ShareAlike 4.0 International License</a>.
           </p>
 

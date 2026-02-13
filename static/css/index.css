@@ -209,6 +209,140 @@ body {
 }
 .pdf-card .mt-3 { margin-top: 0.75rem; }
 
+/* Dataset section: inline images (no PDF reader) */
+.dataset-figure .dataset-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  width: 100%;
+  object-fit: contain;
+}
+
+/* Dataset Statistics: two images side by side with equal height */
+.dataset-stats-row.columns {
+  align-items: stretch;
+}
+.dataset-stats-row .column {
+  display: flex;
+}
+.dataset-stats-row .dataset-figure {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dataset-stats-row .dataset-figure .dataset-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Experiment Analysis: custom one-panel-at-a-time slider */
+.experiment-analysis-wrapper {
+  position: relative;
+  padding: 0 3rem;
+}
+.experiment-panels-outer {
+  overflow: hidden;
+  width: 100%;
+}
+.experiment-panels-inner {
+  display: flex;
+  flex-wrap: nowrap;
+  transition: transform 0.35s ease;
+  width: 300%; /* 3 panels, each 100% of outer */
+}
+.experiment-panel {
+  flex: 0 0 33.333333%;
+  width: 33.333333%; /* one panel = 1/3 of inner = 100% of outer */
+  padding: 0 0.5rem;
+  box-sizing: border-box;
+}
+.experiment-panel-title {
+  margin-bottom: 1rem !important;
+}
+.experiment-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: var(--background-primary);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  transition: var(--transition);
+  pointer-events: auto;
+}
+.experiment-nav:hover {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-lg);
+}
+.experiment-nav-prev { left: 0; }
+.experiment-nav-next { right: 0; }
+.experiment-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.experiment-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: var(--border-color);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.experiment-dot:hover,
+.experiment-dot.is-active {
+  background: var(--primary-color);
+  transform: scale(1.2);
+}
+
+/* Each panel: two images side by side, same height (force row on all screens) */
+.analysis-panel-row.columns {
+  align-items: stretch;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.analysis-panel-row .column.is-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+.analysis-panel-row .column {
+  display: flex;
+}
+.analysis-panel-row .dataset-figure {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.analysis-panel-row .dataset-figure .dataset-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.analysis-panel-row .column.is-12 .dataset-figure {
+  min-height: 420px;
+}
+
 .publication-venue {
     color: var(--text-secondary);
     width: fit-content;
