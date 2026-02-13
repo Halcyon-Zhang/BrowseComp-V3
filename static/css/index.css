@@ -183,6 +183,32 @@ body {
     display: inline-block;
 }
 
+/* Additional PDF cards (cover image + link to PDF) */
+.pdf-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+.pdf-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-color);
+}
+.pdf-card .image {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background: var(--background-accent);
+}
+.pdf-card .image img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.pdf-card .mt-3 { margin-top: 0.75rem; }
+
 .publication-venue {
     color: var(--text-secondary);
     width: fit-content;
