@@ -23,15 +23,15 @@ Multimodal large language models (MLLMs), leveraging their increasingly advancin
 ### Data construction & dataset statistics
 
 <p align="center">
-  <img src="image/overview.png" alt="Data construction pipeline" width="700"/>
+  <img src="image/overview.png" alt="Data construction pipeline" width="700"/><br/>
+  Data construction pipeline of BrowseComp-V³.
 </p>
-*Data construction pipeline of BrowseComp-V³.*
 
 <p align="center">
   <img src="image/domain_2.png" alt="Domain distribution" height="280"/> &nbsp;&nbsp;
-  <img src="image/statistic.png" alt="Dataset statistics" height="280"/>
+  <img src="image/statistic.png" alt="Dataset statistics" height="280"/><br/>
+  Left: Domain distribution. Right: Dataset statistics.
 </p>
-*Left: Domain distribution. Right: Dataset statistics.*
 
 For experiment analysis (fine-grained analysis, scaling, failure modes, etc.), see the [project page](https://halcyon-zhang.github.io/BrowseComp-V3/).
 
