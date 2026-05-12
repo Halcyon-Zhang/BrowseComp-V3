@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Evaluate per-task JSON results (final answer + process score) using an LLM judge.
-For BrowseComp-V³: input_dir should contain JSONs produced by run_rollout.py (or tool-based rollout).
+For BrowseComp-V³: input_dir should contain JSONs produced by examples/baseline_rollout.py or omniseeker/src/run_rollout.py (or tool-based rollout).
 
 Usage:
   python eval_rollout_results.py --input_dir results/gpt-4o --judge_model gpt-4o

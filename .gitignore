@@ -1,7 +1,23 @@
-# Passphrase file (do not commit)
+# OS/editor
+.DS_Store
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Secrets
+.env
+.env.*
+!.env.template
 key.txt
 
-# Local test / run outputs
-data_test/
-results/
-.env
+# Generated data and outputs
+/data/raw/
+/data/samples/
+/data_test/
+/results/
+/results_no_tool/
+/results_verify/
+/logs/
+/omniseeker/logs/
+/.cache/
+**/uploads/

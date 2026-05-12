@@ -1,0 +1,11 @@
+{
+  "server_name": "BrowseComp-V3 Search Tools Gateway",
+  "port": 9191,
+  "debug": false,
+  "modules": [
+    {
+      "resource_type": "utility",
+      "tool_groups": ["search_tools"]
+    }
+  ]
+}
