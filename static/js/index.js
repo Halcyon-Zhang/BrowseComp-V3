@@ -92,13 +92,13 @@ window.addEventListener('scroll', function() {
 
 // Experiment Analysis: one panel at a time, custom slider (no bulma carousel)
 var experimentAnalysisIndex = 0;
-var experimentAnalysisTotal = 3;
+var experimentAnalysisTotal = 4;
 
 function experimentAnalysisUpdate() {
 	var inner = document.getElementById('experiment-panels-inner');
 	var dots = document.querySelectorAll('#experiment-pagination .experiment-dot');
 	if (!inner || !dots.length) return;
-	// Each panel is 1/3 of inner width; move by (index * 100/3)%
+	// Each panel occupies 1 / experimentAnalysisTotal of the inner width.
 	var percent = (experimentAnalysisIndex * 100 / experimentAnalysisTotal);
 	inner.style.transform = 'translateX(-' + percent + '%)';
 	dots.forEach(function(dot, i) {

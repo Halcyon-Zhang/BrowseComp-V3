@@ -1,1 +1,10 @@
 .DS_Store
+
+# Local benchmark/runtime leftovers from the main branch.
+.env
+.env.*
+!.env.template
+key.txt
+.cache/
+data/
+omniseeker/
